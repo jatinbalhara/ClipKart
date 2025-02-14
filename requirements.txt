@@ -1,0 +1,9 @@
+google-api-python-client
+pytube
+moviepy
+opencv-python
+librosa
+mediapipe
+speechrecognition
+nltk
+spacy

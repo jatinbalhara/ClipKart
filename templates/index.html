@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>ClipKart</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel = 'stylesheet' href = "/static/style.css">
+        
+    </head>
+    <body>
+        <section id = "header">
+            <div class="container">
+                <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                  <div class="col-md-3 mb-2 mb-md-0">
+                    <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+                      <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+                  </div>     
+                  <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+                    <li><a href="#" class="nav-link px-2">Features</a></li>
+                    <li><a href="#" class="nav-link px-2">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2">About</a></li>
+                  </ul>
+                  <div class="col-md-3 text-end">
+                    <a href = "./Login Area.html"><button type="button" class="btn btn-outline-primary me-2 ">Login</button></a>
+                    <a href = "./Sign-Up.html"><button type="button" class="btn btn-primary">Sign-up</button></a>
+                  </div>
+              </div>
+              </header>
+        </section>
+
+        
+        <section id="main" class="gradient-background">
+          <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+            <div class="col-md-6 p-lg-5 mx-auto my-5">
+              <h1 class="display-3 fw-bold">ClipKart</h1>
+              <h3 class="fw-normal text-muted mb-3">For creators by creators</h3>
+              <div class="d-flex gap-3 justify-content-center">
+                  <form id="processVideoForm" action="/process_video" method="POST" class="d-inline">
+                      <input type="text" name="url" id="videoUrlInput" placeholder="Enter YouTube URL" class="form-control mb-2">
+                      <button type="submit" class="btn btn-primary btn-lg">Download</button>
+                  </form>
+                  <form id="uploadFileForm" action="/upload" method="POST" enctype="multipart/form-data" class="d-inline">
+                      <input type="file" name="file" id="fileUpload" class="d-none">
+                      <label for="fileUpload" class="btn btn-outline-primary btn-lg">Upload a File</label>
+                      <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+      </section>
+        
+
+        <section id = "Information">
+          <div class="container px-4 py-5" id="icon-grid">
+            <h2 class="pb-2 border-bottom">Why Use ClipKart?</h2>
+        
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#bootstrap"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Time Efficiency</h3>
+                  <p>Saves your time by automatically finding the most loved parts of your videos.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#cpu-fill"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Give the people what they want!</h3>
+                  <p>Find the most viewed part of your video and share it.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#calendar3"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Hassle free</h3>
+                  <p>Automatically formats videos to the portrait format so you wont have to download other apps.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#home"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Cross Platform</h3>
+                  <p>Post to all social media profiles from one account!</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#speedometer2"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Put yourself out there</h3>
+                  <p>Post multiple videos effortlessly and boost your social media profile engagement.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#toggles2"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Professional Quality</h3>
+                  <p>Post videos that look like they have been edited by professionals without even learning how to edit.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#geo-fill"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Global Reach</h3>
+                  <p>Expand your audience by sharing your content with viewers around the world.</p>
+                </div>
+              </div>
+              <div class="col d-flex align-items-start">
+                <svg class="bi text-body-secondary flex-shrink-0 me-3" width="1.75em" height="1.75em"><use xlink:href="#tools"></use></svg>
+                <div>
+                  <h3 class="fw-bold mb-0 fs-4 text-body-emphasis">Save Money</h3>
+                  <p>By automating the editing and formatting process, users may reduce or eliminate the need for costly professional video editing services.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id = "Pricing">
+        <section id = "Pricing">
+                <h1 class="display-4 fw-normal text-body-emphasis">Become a Content Creator today!</h1>
+                <p class="fs-5 text-body-secondary">Start now...</p>
+              </div>
+
+              <div class = "container">
+                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class="col">
+                      <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                          <h4 class="my-0 fw-normal">Free</h4>
+                        </div>
+                        <div class="card-body">
+                          <h1 class="card-title pricing-card-title">₹0<small class="text-body-secondary fw-light">/mo</small></h1>
+                          <ul class="list-unstyled mt-3 mb-4">
+                            <li>7 videos a week</li>
+                            <li>720p HD Quality</li>
+                            <li>25 free templates</li>
+                            <li>2 platform access</li>
+                          </ul>
+                          <a href = "./Sign-Up.html"><button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button></a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card mb-4 rounded-3 shadow-sm">
+                        <div class="card-header py-3">
+                          <h4 class="my-0 fw-normal">Pro</h4>
+                        </div>
+                        <div class="card-body">
+                          <h1 class="card-title pricing-card-title">₹49<small class="text-body-secondary fw-light">/mo</small></h1>
+                          <ul class="list-unstyled mt-3 mb-4">
+                            <li>20 videos a week</li>
+                            <li>Caption your videos</li>
+                            <li>Priority queue</li>
+                            <li>Help center access</li>
+                          </ul>
+                          <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                        <div class="card-header py-3 text-bg-primary border-primary">
+                          <h4 class="my-0 fw-normal">Enterprise</h4>
+                        </div>
+                        <div class="card-body">
+                          <h1 class="card-title pricing-card-title">₹99<small class="text-body-secondary fw-light">/mo</small></h1>
+                          <ul class="list-unstyled mt-3 mb-4">
+                            <li>Unlimited videos</li>
+                            <li>Access to all templates</li>
+                            <li>Supports all platforms</li>
+                            <li>Custom fonts</li>
+                          </ul>
+                          <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        </section>
+
+        <section id = "footer">
+          <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+              <div class="col-md-4 d-flex align-items-center">
+                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                  <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+                <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Company, Inc</span>
+              </div>
+          
+              <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+              </ul>
+            </footer>
+          </div>
+        </section>
+        <script src="/static/script.js"></script>
+        </body>
+</html>
