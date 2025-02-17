@@ -13,8 +13,7 @@ from flask_socketio import SocketIO
 import time
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
-CORS(app)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 FLASK_RUN_PORT = os.environ.get("FLASK_RUN_PORT", 5500)
 
@@ -23,6 +22,10 @@ setup_logging()
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@socketio.on("editing_progress")
+def handle_editing_progress(data):
+    socketio.emit("editing_progress", data, to=request.sid)
 
 @app.route('/process_video', methods=['POST'])
 def process_video():
@@ -43,25 +46,25 @@ def process_video():
         input_path = os.path.join(output_path, filename)
         edited_file_path = os.path.join(output_path, f"{filename}_reel.mp4")
 
-        socketio.emit("progress", {"progress": 20, "message": "Downloading video..."}, to=socketid)
+        # socketio.emit("progress", {"progress": 20, "message": "Downloading video..."}, to=socketid)
         
         logging.info("Downloading the video...")
         
-        downloaded_file = download_video(video_url, output_path, filename)
-        time.sleep(2)
+        downloaded_file = download_video(video_url, output_path, filename, socketid, socketio)
+        socketio.emit("download_progress", {"percent": 100}, to=socketid)
         if not downloaded_file:
             logging.error("Failed to download the video.")
             return jsonify({"error": "Failed to download the video"}), 500
         
-        socketio.emit("progress", {"progress": 50, "message": "Editing video..."}, to=socketid)
-        edited_file = crop_and_format_for_reel(downloaded_file, edited_file_path)
-        time.sleep(2)
+        # socketio.emit("progress", {"progress": 50, "message": "Editing video..."}, to=socketid)
+        edited_file = crop_and_format_for_reel(downloaded_file, edited_file_path, socketid, socketio)
+        socketio.emit("editing_progress", {"percent": 0}, to=socketid)
         
         if not edited_file:
             logging.error("Failed to edit the video.")
             return jsonify({"error": "Failed to edit the video"}), 500
 
-        socketio.emit("progress", {"progress": 100, "message": "Processing complete!"}, to=socketid)
+        # socketio.emit("progress", {"progress": 100, "message": "Processing complete!"}, to=socketid)
         
         return jsonify({
             "download_message": "Video downloaded successfully",
