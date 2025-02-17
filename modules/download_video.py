@@ -6,7 +6,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import yt_dlp  # Replacing youtube_dl with yt_dlp
-
+from flask_socketio import SocketIO, emit
+from modules.utils import progress_hook
 
 def get_video_url(youtube_url):
     """ Open YouTube in a headless browser and extract the final video URL """
@@ -37,7 +38,7 @@ def get_video_url(youtube_url):
 
     return final_url
 
-def download_video(youtube_url, output_path, filename):
+def download_video(youtube_url, output_path, filename, socketid, socketio):
     """ Download YouTube video using yt-dlp with headless browser """
     try:
         os.makedirs(output_path, exist_ok=True)
@@ -53,6 +54,7 @@ def download_video(youtube_url, output_path, filename):
             'merge_output_format': 'mp4',
             'quiet': True,
             'no_warnings': True,
+            'progress_hooks': [lambda d: progress_hook(d, socketid, socketio)],
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
