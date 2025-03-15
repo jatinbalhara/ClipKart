@@ -1,23 +1,62 @@
-// const API_BASE_URL = process.env.API_BASE_URL || "http://172.0.0.1:5500";
 console.log("JavaScript Loaded!");
 const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:5500`;
 const socket = io(API_BASE_URL);
 let socketid = null;
+let fakeEditingTimer = null;
+
+
 
 const progressContainer = document.getElementById("progressContainer");
+const progressBar = document.getElementById("progressBar");
+const editingProgressBar = document.getElementById("editingProgressBar");
+const style = document.querySelector('style');
+style.textContent = '.progress.w-100.editing-progress { height: 5px !important; }';
+const progressElement = document.querySelector('.progress.w-100');
+(async () => {
+    await setElementStyles(progressElement, { height: '20px' });
+})();
+const data = {
+  progressBarClasses: progressElement.className,
+  progressBarHeight: window.getComputedStyle(progressElement)['height'],
+  progressContainerHeight: window.getComputedStyle(progressContainer)['height'],
+}
+
 if (progressContainer) {
     console.log("Hiding progress container");
     progressContainer.style.setProperty('display', 'none', 'important');
-} else {
+}else {
     console.error("Progress container not found!");
+}
+
+function simulateFakeEditingProgress(duration = 20000) {
+    if (!editingProgressBar || !progressContainer) return;
+
+    let progress = 0;
+    const interval = 100; // Update every 100ms
+    const increment = (interval / duration) * 100; // Calculate progress increment
+
+    fakeEditingTimer = setInterval(() => {
+        progress += increment;
+        if (progress >= 100) {
+            progress = 100; // Ensure it doesn't exceed 100%
+            clearInterval(fakeEditingTimer);
+            
+            // Hide progress bar after 1 second
+            setTimeout(() => {
+                progressContainer.style.display = "none";
+            }, 1000);
+        }
+
+        // Update the yellow progress bar
+        editingProgressBar.style.width = `${progress}%`;
+        editingProgressBar.innerText = `Editing: ${progress.toFixed(2)}%`;
+    }, interval);
 }
 
 window.onload = function () {
     console.log("Attempting to connect to socket at:", API_BASE_URL);
-    
-    const progressBar = document.getElementById("progressBar");
     let lastDownloadProgress = 0;
-    let lastEditProgress = 0;
+    fakeEditingTimer = null;
 
     socket.on("connect", function () {
         console.log("Connected to socket!");
@@ -49,24 +88,40 @@ window.onload = function () {
     
             lastDownloadProgress = progress;
         }
-    });
-    socket.on("editing_progress", function (data) {
-        if (!data || typeof data.percent === "undefined") return;
-        if (progressBar && progressContainer) {
-            progressBar.style.width = `${data.percent}%`;
-            progressBar.innerText = `Editing: ${data.percent.toFixed(2)}%`;
-            progressContainer.style.display = "flex";
+        if (progress >= 100) {
+            simulateFakeEditingProgress(20000);
         }
     });
 
     socket.on("download_complete", function () {
         console.log("Download complete!");
-        const progressContainer = document.getElementById("progressContainer");
-        if (progressContainer) {
-            progressContainer.style.display = "none"; // Hide progress bar
-        }
+        simulateFakeEditingProgress(20000); // 20 seconds
     });
+
+    // socket.on("editing_progress", function (data) {
+    //     if (!data || typeof data.percent === "undefined") return;
+
+    //     let progress = data.percent;
+    //     console.log("Editing Progress:", progress);
+
+    //     if (fakeEditingTimer) {
+    //         clearInterval(fakeEditingTimer); // Stop fake progress when real progress starts
+    //         fakeEditingTimer = null;
+    //     }
+
+    //     if (progressBar) {
+    //         progressBar.style.width = `${progress}%`;
+    //         progressBar.innerText = `Editing: ${progress.toFixed(2)}%`;
+    //     }
+
+    //     if (progress >= 100) {
+    //         setTimeout(() => {
+    //             progressContainer.style.display = "none";
+    //         }, 1000);
+    //     }
+    // });
 };
+    
 
 
 
@@ -143,3 +198,4 @@ else {
 }
 
 // });
+
